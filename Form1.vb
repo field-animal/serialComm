@@ -1,6 +1,6 @@
 ﻿Imports System.IO.Ports
 Imports System.Threading
-Imports System.Windows.Forms
+'Imports System.Windows.Forms
 
 
 Public Class frmMain
@@ -16,6 +16,7 @@ Public Class frmMain
         GetSerialPortNames()
 
         TreeView1.ExpandAll()
+
     End Sub
 
     'HW의 포트 구성요소를 획득하여 드랍다운 아이템에 추가
@@ -42,6 +43,10 @@ Public Class frmMain
     End Sub
 
     Private Sub tsBtnConnect_Click(sender As Object, e As EventArgs) Handles tsBtnConnect.Click
+        If tsBtnConnect.Text = "disConnect" Then
+            ClosePort
+            Exit Sub
+        End If
 
         Try
             serialPort = New SerialPort(tsSplitbtnPort.Text, 115200, Parity.None, 8, StopBits.One)
@@ -51,13 +56,13 @@ Public Class frmMain
             'SendData(Now() & ": 시리얼 통신 시작" & vbCrLf)
             'serialPort.ReadTimeout = 10000
             keepReceiving = True
-            tsBtnConnect.Text = "disconnect"
+            tsBtnConnect.Text = "disConnect"
 
         Catch ex As TimeoutException
-            returnStr = "error : serial port read time out"
+            returnStr = "error : 시리얼 포트가 대답을 안함"
             MsgBox(returnStr)
         Catch ex As Exception
-            returnStr = "error : reject connect"
+            returnStr = "error : 연결 거절 당해뜸, 시부레"
             MsgBox(returnStr)
         Finally
             'If serialPort IsNot Nothing Then serialPort.Close()
@@ -78,14 +83,15 @@ Public Class frmMain
         '수신 데이터 배열의 인덱스를 구분하기 위한 변수
         Dim indexOfreceviedData As Integer = 0
 
-
-        For indexOfreceviedData = 0 To receivedDATAs.Count - 1
+        For indexOfreceviedData = 1 To receivedDATAs.Count - 1
+            '수신 데이터이므로 <<를 추가
+            DataAddToList(Now() & msgDirect & receivedDATAs(indexOfreceviedData), False)
             If receivedDATAs(indexOfreceviedData).Contains(checksumLetter) = True Then
 
-                '수신 데이터이므로 <<를 추가
-                addData(Now() & msgDirect & receivedDATAs(indexOfreceviedData), False)
+
                 Dim autoSendValue As String = vbNullString
                 Dim i As Integer = 0
+                Dim idx_childNode As Integer = 0
                 '수신 데이터의 명령을 트리뷰에서 찾아서 자식 노드의 응답값으로 자동 송신
                 autoSendValue = vbNullString
                 Dim strSearchstring As String
@@ -94,15 +100,13 @@ Public Class frmMain
 
                 '트리 노드의 개수 만큼 for문 반복하여 각 노드의 정보 획득
                 For i = 0 To TreeView1.Nodes.Count - 1
-                    If TreeView1.Nodes.Item(i).Checked Then
-                        If TreeView1.Nodes.Item(i).Text = strSearchstring Then
-                            '자동 응답으로 전송하려는 응답값을 트리 노드에서 검색하여 존재할 경우 
-                            autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(0).Text
-                            SendData(autoSendValue)
-                            Exit For
-                            '자동 응답을 완료하지 못하면 false 반환
-                            Return False
-                        End If
+                    If TreeView1.Nodes.Item(i).Checked AndAlso TreeView1.Nodes.Item(i).Text = strSearchstring Then 'i 인덱스의 루트 노드가 체크되어 있으면, 루트노드에서 검색어가 포함되어 있는지 확인
+                        ''검색어가 포함되어 있을 경우 자식 노드에서 자동 응답값을 검색하는 반복문 실행
+                        For idx_childNode = 0 To TreeView1.Nodes.Item(i).Nodes.Count - 1 '0부터 자식노드의 개수만큼 반복문 실행
+                            If TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Checked = True Then autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Text '자식 노드에 체크되어 있으면 자동응답값은 체크된 자식 노드의 텍스트로 설정
+                        Next
+                        If autoSendValue = vbNullString Then autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(0).Text '자식 노드가 체크되어 있지 않다면, 첫번째 자식 노드를 자동 응답값으로 설정
+                        SendData(autoSendValue)
                     End If
                     Console.WriteLine(i & strSearchstring)
                 Next
@@ -120,8 +124,8 @@ Public Class frmMain
         If serialPort IsNot Nothing AndAlso serialPort.IsOpen Then
             Console.WriteLine("데이터 전송합니다." & data)
             Try
-                serialPort.WriteLine(data)
-                addData(Now() & " >> " & data, True)
+                serialPort.WriteLine(data) '시리얼포트로 전송
+                DataAddToList(Now() & " >> " & data, True) ' 리스트 박스 목록에 값을 item으로 추가
                 Console.WriteLine("송신: " & data)
                 Return True
             Catch ex As Exception
@@ -139,12 +143,13 @@ Public Class frmMain
     End Function
 
     'Data를 List Box에 추가
-    Public Sub addData(ByVal str_addDATA As String, isSendData As Boolean)
+    Public Sub DataAddToList(ByVal str_addDATA As String, isSendData As Boolean)
         If ListBox1.InvokeRequired Then
             ListBox1.Invoke(Sub() ListBox1.Items.Add(str_addDATA))
         Else
             ListBox1.Items.Add(str_addDATA)
         End If
+
     End Sub
 
     ' 데이터 송신  버튼의 이벤트 핸들러
@@ -164,9 +169,11 @@ Public Class frmMain
             If serialPort IsNot Nothing AndAlso serialPort.IsOpen Then
                 serialPort.Close()
                 Console.WriteLine("시리얼 포트가 닫혔습니다.")
+                tsBtnConnect.Text = "Connect"
             End If
         Catch ex As Exception
             Console.WriteLine("포트 닫기 오류: " & ex.Message)
+
         End Try
     End Sub
 
@@ -174,9 +181,12 @@ Public Class frmMain
         If tsBtnConnect.Text = "Connect" Then
             Exit Sub
         Else
+            Console.WriteLine("리스트 박스 아이템의 수 : " & ListBox1.Items.Count)
+            If ListBox1.Items.Count <= 0 Then Exit Sub
             e.DrawBackground()
             Dim brush As Brush = Brushes.Black
             Dim direction As String = ListBox1.Items(e.Index).ToString
+
             '수발신 데이터에 << 가 포함되어 있으면 수신, >>가 포함되어 있으면 송신으로 판단
             If direction.IndexOf("<<") > 0 Then
                 direction = "<<"
@@ -208,6 +218,7 @@ Public Class frmMain
     Private Sub tb_sendMessage_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tb_sendMessage.KeyPress
         If e.KeyChar.Equals(Keys.Enter) Then SendData(tb_sendMessage.Text)
     End Sub
+
 End Class
 
 
