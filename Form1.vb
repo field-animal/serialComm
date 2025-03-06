@@ -1,4 +1,5 @@
-﻿Imports System.IO.Ports
+﻿Imports System.ComponentModel
+Imports System.IO.Ports
 Imports System.Threading
 'Imports System.Windows.Forms
 
@@ -8,8 +9,6 @@ Public Class frmMain
     Private WithEvents serialPort As SerialPort
     Private receivingThread As Thread
     Private keepReceiving As Boolean = True
-
-
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '첫 실행 시, 시리얼 포트 목록을 획득
@@ -21,7 +20,6 @@ Public Class frmMain
 
     'HW의 포트 구성요소를 획득하여 드랍다운 아이템에 추가
     Public Sub GetSerialPortNames()
-        ' Show all available COM ports.
         Dim indexNum As Integer = 0
         tsSplitbtnPort.DropDownItems.Clear()
         For Each sp As String In My.Computer.Ports.SerialPortNames
@@ -44,7 +42,7 @@ Public Class frmMain
 
     Private Sub tsBtnConnect_Click(sender As Object, e As EventArgs) Handles tsBtnConnect.Click
         If tsBtnConnect.Text = "disConnect" Then
-            ClosePort
+            ClosePort()
             Exit Sub
         End If
 
@@ -103,7 +101,10 @@ Public Class frmMain
                     If TreeView1.Nodes.Item(i).Checked AndAlso TreeView1.Nodes.Item(i).Text = strSearchstring Then 'i 인덱스의 루트 노드가 체크되어 있으면, 루트노드에서 검색어가 포함되어 있는지 확인
                         ''검색어가 포함되어 있을 경우 자식 노드에서 자동 응답값을 검색하는 반복문 실행
                         For idx_childNode = 0 To TreeView1.Nodes.Item(i).Nodes.Count - 1 '0부터 자식노드의 개수만큼 반복문 실행
-                            If TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Checked = True Then autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Text '자식 노드에 체크되어 있으면 자동응답값은 체크된 자식 노드의 텍스트로 설정
+                            If TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Checked = True Then
+                                autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(idx_childNode).Text '자식 노드에 체크되어 있으면 자동응답값은 체크된 자식 노드의 텍스트로 설정
+                                Exit For '응답값을 획득 했으므로 반복문 종료
+                            End If
                         Next
                         If autoSendValue = vbNullString Then autoSendValue = TreeView1.Nodes.Item(i).Nodes.Item(0).Text '자식 노드가 체크되어 있지 않다면, 첫번째 자식 노드를 자동 응답값으로 설정
                         SendData(autoSendValue)
@@ -112,7 +113,7 @@ Public Class frmMain
                 Next
             End If
         Next
-        '자동 응답을 완료하면 true 반환
+        '절차를 완료하면 true 반환 (이 값이 자동 응답을 했다는 보장을 하지 못함)
         Return True
     End Function
 
@@ -146,8 +147,10 @@ Public Class frmMain
     Public Sub DataAddToList(ByVal str_addDATA As String, isSendData As Boolean)
         If ListBox1.InvokeRequired Then
             ListBox1.Invoke(Sub() ListBox1.Items.Add(str_addDATA))
+            If ListBox1.Items.Count > 0 Then ListBox1.Invoke(Sub() ListBox1.TopIndex = ListBox1.Items.Count - 1) '가장 마지막 항목으로 자동 스크롤
         Else
             ListBox1.Items.Add(str_addDATA)
+            ListBox1.TopIndex = ListBox1.Items.Count - 1 '가장 마지막 항목으로 자동 스크롤
         End If
 
     End Sub
@@ -219,6 +222,13 @@ Public Class frmMain
         If e.KeyChar.Equals(Keys.Enter) Then SendData(tb_sendMessage.Text)
     End Sub
 
+    Private Sub ts_LogClear_Click(sender As Object, e As EventArgs) Handles ts_LogClear.Click
+        ListBox1.Items.Clear()
+    End Sub
+
+    Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        If serialPort.IsOpen Then serialPort.Close()
+    End Sub
 End Class
 
 

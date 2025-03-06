@@ -22,23 +22,23 @@ Partial Class frmMain
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim TreeNode52 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AVF02.0A*0C")
-        Dim TreeNode53 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QVF", New System.Windows.Forms.TreeNode() {TreeNode52})
-        Dim TreeNode54 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AVSSJ-21L-2424-00001*19")
-        Dim TreeNode55 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QV", New System.Windows.Forms.TreeNode() {TreeNode54})
-        Dim TreeNode56 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS00000000D*56")
-        Dim TreeNode57 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS2222222D*64")
-        Dim TreeNode58 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS0222222U*77")
-        Dim TreeNode59 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS3222222D*65")
-        Dim TreeNode60 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QS", New System.Windows.Forms.TreeNode() {TreeNode56, TreeNode57, TreeNode58, TreeNode59})
-        Dim TreeNode61 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AH060*3F")
-        Dim TreeNode62 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QH", New System.Windows.Forms.TreeNode() {TreeNode61})
-        Dim TreeNode63 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AT500*20")
-        Dim TreeNode64 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AT700*22")
-        Dim TreeNode65 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QT", New System.Windows.Forms.TreeNode() {TreeNode63, TreeNode64})
-        Dim TreeNode66 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$ACD*21")
-        Dim TreeNode67 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$ACF*21")
-        Dim TreeNode68 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QC", New System.Windows.Forms.TreeNode() {TreeNode66, TreeNode67})
+        Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AVF02.0A*0C")
+        Dim TreeNode2 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QVF", New System.Windows.Forms.TreeNode() {TreeNode1})
+        Dim TreeNode3 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AVSSJ-21L-2424-00001*19")
+        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QV", New System.Windows.Forms.TreeNode() {TreeNode3})
+        Dim TreeNode5 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS00000000D*56")
+        Dim TreeNode6 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS2222222D*64")
+        Dim TreeNode7 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS0222222U*77")
+        Dim TreeNode8 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AS3222222D*65")
+        Dim TreeNode9 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QS", New System.Windows.Forms.TreeNode() {TreeNode5, TreeNode6, TreeNode7, TreeNode8})
+        Dim TreeNode10 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AH060*3F")
+        Dim TreeNode11 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QH", New System.Windows.Forms.TreeNode() {TreeNode10})
+        Dim TreeNode12 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AT500*20")
+        Dim TreeNode13 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$AT700*22")
+        Dim TreeNode14 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QT", New System.Windows.Forms.TreeNode() {TreeNode12, TreeNode13})
+        Dim TreeNode15 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$ACD*21")
+        Dim TreeNode16 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("$ACF*21")
+        Dim TreeNode17 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("QC", New System.Windows.Forms.TreeNode() {TreeNode15, TreeNode16})
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
@@ -56,6 +56,10 @@ Partial Class frmMain
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsBtnConnect = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ts_log = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.ts_LogClear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.선택복사CToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripContainer3 = New System.Windows.Forms.ToolStripContainer()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -104,6 +108,7 @@ Partial Class frmMain
         Me.ListBox1.MultiColumn = True
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.ScrollAlwaysVisible = True
+        Me.ListBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
         Me.ListBox1.Size = New System.Drawing.Size(1050, 1067)
         Me.ListBox1.TabIndex = 0
         '
@@ -135,53 +140,53 @@ Partial Class frmMain
         Me.TreeView1.LabelEdit = True
         Me.TreeView1.Location = New System.Drawing.Point(0, 0)
         Me.TreeView1.Name = "TreeView1"
-        TreeNode52.Checked = True
-        TreeNode52.Name = "노드1"
-        TreeNode52.Text = "$AVF02.0A*0C"
-        TreeNode53.Checked = True
-        TreeNode53.Name = "노드0"
-        TreeNode53.Text = "QVF"
-        TreeNode54.Checked = True
-        TreeNode54.Name = "AV"
-        TreeNode54.Text = "$AVSSJ-21L-2424-00001*19"
-        TreeNode55.Checked = True
-        TreeNode55.Name = "cmdQV"
-        TreeNode55.Text = "QV"
-        TreeNode56.Checked = True
-        TreeNode56.Name = "노드5"
-        TreeNode56.Text = "$AS00000000D*56"
-        TreeNode57.Name = "노드6"
-        TreeNode57.Text = "$AS2222222D*64"
-        TreeNode58.Name = "노드7"
-        TreeNode58.Text = "$AS0222222U*77"
-        TreeNode59.Name = "노드10"
-        TreeNode59.Text = "$AS3222222D*65"
-        TreeNode60.Checked = True
-        TreeNode60.Name = "cmdQS"
-        TreeNode60.Text = "QS"
-        TreeNode61.Checked = True
-        TreeNode61.Name = "노드11"
-        TreeNode61.Text = "$AH060*3F"
-        TreeNode62.Checked = True
-        TreeNode62.Name = "노드2"
-        TreeNode62.Text = "QH"
-        TreeNode63.Checked = True
-        TreeNode63.Name = "노드12"
-        TreeNode63.Text = "$AT500*20"
-        TreeNode64.Name = "노드13"
-        TreeNode64.Text = "$AT700*22"
-        TreeNode65.Checked = True
-        TreeNode65.Name = "노드3"
-        TreeNode65.Text = "QT"
-        TreeNode66.Checked = True
-        TreeNode66.Name = "노드14"
-        TreeNode66.Text = "$ACD*21"
-        TreeNode67.Name = "노드15"
-        TreeNode67.Text = "$ACF*21"
-        TreeNode68.Checked = True
-        TreeNode68.Name = "노드8"
-        TreeNode68.Text = "QC"
-        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode53, TreeNode55, TreeNode60, TreeNode62, TreeNode65, TreeNode68})
+        TreeNode1.Checked = True
+        TreeNode1.Name = "노드1"
+        TreeNode1.Text = "$AVF02.0A*0C"
+        TreeNode2.Checked = True
+        TreeNode2.Name = "노드0"
+        TreeNode2.Text = "QVF"
+        TreeNode3.Checked = True
+        TreeNode3.Name = "AV"
+        TreeNode3.Text = "$AVSSJ-21L-2424-00001*19"
+        TreeNode4.Checked = True
+        TreeNode4.Name = "cmdQV"
+        TreeNode4.Text = "QV"
+        TreeNode5.Checked = True
+        TreeNode5.Name = "노드5"
+        TreeNode5.Text = "$AS00000000D*56"
+        TreeNode6.Name = "노드6"
+        TreeNode6.Text = "$AS2222222D*64"
+        TreeNode7.Name = "노드7"
+        TreeNode7.Text = "$AS0222222U*77"
+        TreeNode8.Name = "노드10"
+        TreeNode8.Text = "$AS3222222D*65"
+        TreeNode9.Checked = True
+        TreeNode9.Name = "cmdQS"
+        TreeNode9.Text = "QS"
+        TreeNode10.Checked = True
+        TreeNode10.Name = "노드11"
+        TreeNode10.Text = "$AH060*3F"
+        TreeNode11.Checked = True
+        TreeNode11.Name = "노드2"
+        TreeNode11.Text = "QH"
+        TreeNode12.Checked = True
+        TreeNode12.Name = "노드12"
+        TreeNode12.Text = "$AT500*20"
+        TreeNode13.Name = "노드13"
+        TreeNode13.Text = "$AT700*22"
+        TreeNode14.Checked = True
+        TreeNode14.Name = "노드3"
+        TreeNode14.Text = "QT"
+        TreeNode15.Checked = True
+        TreeNode15.Name = "노드14"
+        TreeNode15.Text = "$ACD*21"
+        TreeNode16.Name = "노드15"
+        TreeNode16.Text = "$ACF*21"
+        TreeNode17.Checked = True
+        TreeNode17.Name = "노드8"
+        TreeNode17.Text = "QC"
+        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode2, TreeNode4, TreeNode9, TreeNode11, TreeNode14, TreeNode17})
         Me.TreeView1.Size = New System.Drawing.Size(802, 868)
         Me.TreeView1.TabIndex = 0
         '
@@ -225,7 +230,7 @@ Partial Class frmMain
         Me.ToolStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.ToolStrip1.GripMargin = New System.Windows.Forms.Padding(10)
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsLabelPort, Me.tsSplitbtnPort, Me.ToolStripSeparator2, Me.ToolStripLabel1, Me.ToolStripDropDownButton1, Me.ToolStripSeparator1, Me.tsBtnConnect})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsLabelPort, Me.tsSplitbtnPort, Me.ToolStripSeparator2, Me.ToolStripLabel1, Me.ToolStripDropDownButton1, Me.ToolStripSeparator1, Me.tsBtnConnect, Me.ToolStripSeparator3, Me.ts_log})
         Me.ToolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
@@ -254,7 +259,8 @@ Partial Class frmMain
         Me.tsSplitbtnPort.Margin = New System.Windows.Forms.Padding(0)
         Me.tsSplitbtnPort.Name = "tsSplitbtnPort"
         Me.tsSplitbtnPort.Size = New System.Drawing.Size(168, 30)
-        Me.tsSplitbtnPort.Text = "연결 포트 미지정"
+        Me.tsSplitbtnPort.Text = "연결 포트 선택"
+        Me.tsSplitbtnPort.ToolTipText = "연결 포트 선택"
         '
         'ToolStripSeparator2
         '
@@ -301,6 +307,35 @@ Partial Class frmMain
         Me.tsBtnConnect.Name = "tsBtnConnect"
         Me.tsBtnConnect.Size = New System.Drawing.Size(112, 36)
         Me.tsBtnConnect.Text = "Connect"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 23)
+        '
+        'ts_log
+        '
+        Me.ts_log.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ts_LogClear, Me.선택복사CToolStripMenuItem})
+        Me.ts_log.Image = CType(resources.GetObject("ts_log.Image"), System.Drawing.Image)
+        Me.ts_log.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ts_log.Name = "ts_log"
+        Me.ts_log.Size = New System.Drawing.Size(90, 29)
+        Me.ts_log.Text = "로그"
+        '
+        'ts_LogClear
+        '
+        Me.ts_LogClear.Enabled = False
+        Me.ts_LogClear.Name = "ts_LogClear"
+        Me.ts_LogClear.Size = New System.Drawing.Size(272, 34)
+        Me.ts_LogClear.Text = "모두 지우기"
+        '
+        '선택복사CToolStripMenuItem
+        '
+        Me.선택복사CToolStripMenuItem.Enabled = False
+        Me.선택복사CToolStripMenuItem.Name = "선택복사CToolStripMenuItem"
+        Me.선택복사CToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.C), System.Windows.Forms.Keys)
+        Me.선택복사CToolStripMenuItem.Size = New System.Drawing.Size(272, 34)
+        Me.선택복사CToolStripMenuItem.Text = "선택 복사 &C"
         '
         'ToolStripContainer3
         '
@@ -368,4 +403,8 @@ Partial Class frmMain
     Friend WithEvents btn_DataSend As Button
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents TreeView1 As TreeView
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents ts_log As ToolStripDropDownButton
+    Friend WithEvents ts_LogClear As ToolStripMenuItem
+    Friend WithEvents 선택복사CToolStripMenuItem As ToolStripMenuItem
 End Class
